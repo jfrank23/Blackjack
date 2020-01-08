@@ -8,6 +8,7 @@ namespace Blackjack.Core
     {
         public List<Card> Cards;
         public int NumberOfDecks;
+        public int Cut;
 
         private Random random;
 
@@ -15,8 +16,14 @@ namespace Blackjack.Core
         {
             NumberOfDecks = numberOfDecks;
             Cards = Shuffle(GenerateShoe());
+            Cut = GenerateCut();
         }
-
+        public Card DealCard()
+        {
+            var cardDealt = Cards[0];
+            Cards.Remove(cardDealt);
+            return cardDealt;
+        }
         public List<Card> Shuffle(IEnumerable<Card> cards)
         {
             random = new Random();
@@ -41,6 +48,13 @@ namespace Blackjack.Core
                     foreach (var suit in Enum.GetValues(typeof(Suit)))
                         cards.Add(new Card { CardValue = (CardValue)value, Suit = (Suit)suit });
             return cards;
+        }
+        public int GenerateCut()
+        {
+            random = new Random();
+            int halfwayInDeck = NumberOfDecks * 52 / 2;
+            int totalCards = NumberOfDecks * 52;
+            return random.Next(halfwayInDeck, totalCards);
         }
     }
 }

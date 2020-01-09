@@ -6,20 +6,21 @@ namespace Blackjack.Core.Actions
 {
     public interface IPlayAction
     {
-        void Play();
+        bool Play(Shoe currentShoe, Hand currentHand);
     }
     public class Hit : IPlayAction
     {
-        public void Play()
+        public bool Play(Shoe currentShoe, Hand currentHand)
         {
-            throw new NotImplementedException();
+            currentHand.AddCardToHand(currentShoe.DealCard());
+            return false;
         }
     }
     public class Stand : IPlayAction
     {
-        public void Play()
+        public bool Play(Shoe currentShoe, Hand currentHand)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

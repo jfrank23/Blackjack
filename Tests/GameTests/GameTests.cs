@@ -18,5 +18,13 @@ namespace Tests.GameTests
             game.dealer.primaryHand.Cards.Count.Should().Be(2);
             game.player.primaryHand.Cards.Count.Should().Be(2);
         }
+        [Test]
+        public void RoundTest()
+        {
+            //Not a real test. Temporary for me to walk through the game process.
+            var game = new Game();
+            game.StartGame();
+            game.PlayRound();
+        }
     }
 }

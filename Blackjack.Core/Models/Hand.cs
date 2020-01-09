@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Blackjack.Core
 {
@@ -20,31 +21,36 @@ namespace Blackjack.Core
         public void AddCardToHand(Card newCard)
         {
             Cards.Add(newCard);
-            Score += CalculateChangeInScore(newCard);
+            Score = CalculateChangeInScore(Cards);
             Busted = IsBust(Score);
         }
 
-        private int CalculateChangeInScore(Card newCard) //Need To Recalculate whole hand after each turn
+        private int CalculateChangeInScore(IEnumerable<Card> Cards) //Need To Recalculate whole hand after each turn
         {
-            if ((int)newCard.CardValue > 10) //Ten or Face
+            var score = 0;
+            foreach(var newCard in Cards.OrderByDescending(C => C.CardValue))
             {
-                return 10;
-            }
-            else if ((int)newCard.CardValue == 1) //Ace
-            {
-                if (IsBust(Score + 11))
+                if ((int)newCard.CardValue > 10) //Ten or Face
                 {
-                    return 1;
+                    score+= 10;
+                }
+                else if ((int)newCard.CardValue == 1) //Ace
+                {
+                    if (IsBust(score + 11))
+                    {
+                        score += 1;
+                    }
+                    else
+                    {
+                        score += 11;
+                    }
                 }
                 else
                 {
-                    return 11;
+                    score += (int)newCard.CardValue; //Regular Card
                 }
             }
-            else
-            {
-                return (int)newCard.CardValue; //Regular Card
-            }
+            return score;
         }
 
         public bool IsBust(int Score)

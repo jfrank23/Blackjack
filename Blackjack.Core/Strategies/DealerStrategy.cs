@@ -7,28 +7,36 @@ namespace Blackjack.Core.Strategies
 {
     public interface Strategy
     {
-        bool ExecuteStrategy(Hand currentHand, Shoe shoe);
+        IPlayAction ExecuteStrategy(Hand currentHand, Shoe shoe);
+        IBetAction BettingStrategy();
     }
     public class DealerStrategy : Strategy
     {
-        public ActionMapper actionMapper = new ActionMapper();
-        public bool ExecuteStrategy(Hand currentHand, Shoe shoe)
+        public IBetAction BettingStrategy()
+        {
+            return new NoBet();
+        }
+
+        public IPlayAction ExecuteStrategy(Hand currentHand, Shoe shoe)
         {
             if (currentHand.Score < 17)
             {
-                actionMapper.Map("Hit");
-                return false;
+                return new Hit();
             }
             else
             {
-                actionMapper.Map("Stand");
-                return true;
+                return new Stand();
             }
         }
     }
     public class ManualStrategy : Strategy
     {
-        public bool ExecuteStrategy(Hand currentHand, Shoe shoe)
+        public IBetAction BettingStrategy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPlayAction ExecuteStrategy(Hand currentHand, Shoe shoe)
         {
             throw new NotImplementedException();
         }

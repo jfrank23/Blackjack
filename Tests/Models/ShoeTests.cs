@@ -32,5 +32,14 @@ namespace Tests.Models
             shuffled.Should().BeEquivalentTo(cards);
 
         }
+
+        [Test]
+        public void DealCardRemovesOneCardFromDeck()
+        {
+            var shoe = new Shoe(1);
+            var cardDealt = shoe.DealCard();
+            shoe.Cards.Count.Should().Be(51);
+            shoe.Cards.Should().NotContain(cardDealt);
+        }
     }
 }

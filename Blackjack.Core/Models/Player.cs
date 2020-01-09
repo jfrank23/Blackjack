@@ -17,13 +17,24 @@ namespace Blackjack.Core
             Money = startingMoney;
             primaryHand = new Hand(0);
         }
-        public void Play(Shoe currentShoe)
+        public int Play(Shoe currentShoe)
         {
             var done = false;
             while (done == false)
             {
-                done = strategy.ExecuteStrategy(primaryHand, currentShoe);
+                var action = strategy.ExecuteStrategy(primaryHand, currentShoe);
+                done = action.Play(currentShoe,primaryHand);
+                if (primaryHand.Busted)
+                {
+                    done = true;
+                }
             }
+            return primaryHand.Score;
+        }
+        public int Bet()
+        {
+            var bettingAction = strategy.BettingStrategy();
+            return bettingAction.Bet();
         }
 
     }

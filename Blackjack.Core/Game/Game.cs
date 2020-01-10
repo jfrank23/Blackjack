@@ -41,7 +41,7 @@ namespace Blackjack.Core.Game
         {
             foreach (var person in players)
             {
-                person.primaryHand.Bet = person.Bet();
+                person.primaryHand.Bet = person.PlaceBet();
             }
         }
 
@@ -51,7 +51,7 @@ namespace Blackjack.Core.Game
             {
                 foreach (var person in players.Concat(new[] { dealer }))
                 {
-                    person.Play(currentShoe);
+                    person.PlayTurn(currentShoe);
                 }
             }
         }

@@ -17,7 +17,7 @@ namespace Blackjack.Core
             Money = startingMoney;
             primaryHand = new Hand(0);
         }
-        public int Play(Shoe currentShoe)
+        public int PlayTurn(Shoe currentShoe)
         {
             var done = false;
             while (done == false)
@@ -31,7 +31,7 @@ namespace Blackjack.Core
             }
             return primaryHand.Score;
         }
-        public int Bet()
+        public int PlaceBet()
         {
             var bettingAction = strategy.BettingStrategy();
             return bettingAction.Bet();

@@ -22,7 +22,7 @@ namespace Tests.Models
             var card2 = new Card { CardValue = card2Value, Suit = Suit.Diamonds };
             player.primaryHand.AddCardToHand(card1);
             player.primaryHand.AddCardToHand(card2);
-            player.Play(shoe).Should().Be(result);
+            player.PlayTurn(shoe).Should().Be(result);
 
         }
     }

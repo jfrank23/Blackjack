@@ -1,5 +1,4 @@
 ﻿using Blackjack.Core.Actions;
-using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -27,18 +26,6 @@ namespace Blackjack.Core.Strategies
             {
                 return new Stand();
             }
-        }
-    }
-    public class ManualStrategy : Strategy
-    {
-        public IBetAction BettingStrategy()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IPlayAction ExecuteStrategy(Hand currentHand, Shoe shoe)
-        {
-            throw new NotImplementedException();
         }
     }
 }

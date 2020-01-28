@@ -1,5 +1,5 @@
 ﻿using Blackjack.Core.Actions;
-using System;
+using Blackjack.Core.UserInteraction;
 
 namespace Blackjack.Core.Strategies
 {

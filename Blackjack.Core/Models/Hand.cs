@@ -10,9 +10,8 @@ namespace Blackjack.Core
         public int Score;
         public bool Busted;
 
-        public Hand(int Bet)
+        public Hand()
         {
-            this.Bet = Bet;
             Score = 0;
             Busted = false;
             Cards = new List<Card>();

@@ -14,7 +14,7 @@ namespace Tests.GameTests
         public void StartGameTest()
         {
             var game = new Game();
-            game.StartGame();
+            game.StartHand();
             game.dealer.primaryHand.Cards.Count.Should().Be(2);
             game.player.primaryHand.Cards.Count.Should().Be(2);
         }
@@ -23,7 +23,7 @@ namespace Tests.GameTests
         {
             //Not a real test. Temporary for me to walk through the game process.
             var game = new Game();
-            game.StartGame();
+            game.StartHand();
             game.PlayRound();
         }
     }

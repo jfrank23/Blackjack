@@ -1,6 +1,6 @@
 ﻿using Blackjack.Core.Actions;
 
-namespace Blackjack.Core
+namespace Blackjack.Core.UserInteraction
 {
     public interface IInputFromPlayer
     {

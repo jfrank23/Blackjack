@@ -50,11 +50,9 @@ namespace Blackjack.Core
                 foreach (var value in Enum.GetValues(typeof(CardValue)))
                     foreach (var suit in Enum.GetValues(typeof(Suit)))
                         cards.Add(new Card { CardValue = (CardValue)value, Suit = (Suit)suit });
-            Cut = GenerateCut();
-            CardsDealt = 0;
             return cards;
         }
-        public int GenerateCut()
+        private int GenerateCut()
         {
             random = new Random();
             var mu = (int)Math.Round(NumberOfDecks * 52 * .75);

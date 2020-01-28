@@ -1,12 +1,10 @@
 ﻿using Blackjack.Core.Strategies;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Blackjack.Core
 {
     public class Player
     {
+        public string name { get; set; }
         public Hand primaryHand;
         public int Money;
         public Strategy strategy;
@@ -14,8 +12,9 @@ namespace Blackjack.Core
         public Player(Strategy strategy,int startingMoney = 100)
         {
             this.strategy = strategy;
+            name = strategy.ToString();
             Money = startingMoney;
-            primaryHand = new Hand(0);
+            primaryHand = new Hand();
         }
         public int PlayTurn(Shoe currentShoe)
         {

@@ -2,7 +2,7 @@
 
 namespace Blackjack.Core.Strategies
 {
-    public class BasicStrategy : Strategy
+    public class BasicStrategy : IStrategy
     {
         public IBetAction BettingStrategy()
         {

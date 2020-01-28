@@ -3,12 +3,7 @@ using System.Linq;
 
 namespace Blackjack.Core.Strategies
 {
-    public interface Strategy
-    {
-        IPlayAction ExecuteStrategy(Hand currentHand, Shoe shoe);
-        IBetAction BettingStrategy();
-    }
-    public class DealerStrategy : Strategy
+    public class DealerStrategy : IStrategy
     {
         public IBetAction BettingStrategy()
         {

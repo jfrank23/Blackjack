@@ -19,4 +19,13 @@
             return true;
         }
     }
+    public class Double : IPlayAction
+    {
+        public bool Play(Shoe currentShoe, Hand currentHand)
+        {
+            currentHand.AddCardToHand(currentShoe.DealCard());
+            currentHand.Bet *= 2;
+            return true;
+        }
+    }
 }

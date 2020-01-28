@@ -13,7 +13,7 @@ namespace BlackjackCLI
             IDisplayGame display = new DisplayCLI();
             var game = new Game(inputFromPlayer, display);
             var handsPlayed = 0;
-            while (game.player.Money>0 || handsPlayed >=100)
+            while (game.player.Money>0 || handsPlayed <=100)
             {
                 game.PlayRound();
                 handsPlayed += 1;

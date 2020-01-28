@@ -3,7 +3,7 @@ using Blackjack.Core.UserInteraction;
 
 namespace Blackjack.Core.Strategies
 {
-    public class ManualStrategy : Strategy
+    public class ManualStrategy : IStrategy
     {
         IInputFromPlayer inputFromPlayer;
         public ManualStrategy(IInputFromPlayer inputFromPlayer)

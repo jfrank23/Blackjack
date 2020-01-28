@@ -7,9 +7,9 @@ namespace Blackjack.Core
         public string name { get; set; }
         public Hand primaryHand;
         public int Money;
-        public Strategy strategy;
+        public IStrategy strategy;
 
-        public Player(Strategy strategy,int startingMoney = 100)
+        public Player(IStrategy strategy,int startingMoney = 100)
         {
             this.strategy = strategy;
             name = strategy.ToString();

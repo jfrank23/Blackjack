@@ -1,4 +1,5 @@
 ﻿using Blackjack.Core.Actions;
+using System.Linq;
 
 namespace Blackjack.Core.Strategies
 {

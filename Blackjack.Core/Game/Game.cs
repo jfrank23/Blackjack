@@ -28,17 +28,22 @@ namespace Blackjack.Core.Game
         }
         public void StartHand()
         {
-            while (dealer.primaryHand.Cards.Count < 2)
+            foreach(var person in players.Concat(new[] { dealer }))
+            {
+                person.hands = new List<Hand> { new Hand() };
+            }
+            while (dealer.hands[0].Cards.Count < 2)
             {
                 foreach (var person in players.Concat(new[] { dealer }))
                 {
                     display.DisplayGame(this);
-                    person.primaryHand.AddCardToHand(currentShoe.DealCard());
+                    person.hands[0].AddCardToHand(currentShoe.DealCard());
                 }
             }
         }
         public void PlayRound()
         {
+            StartHand();
             PlaceInitialBets();
             IndividualsPlay();
             CalculateOutcome();
@@ -47,12 +52,6 @@ namespace Blackjack.Core.Game
 
         private void FinishRound()
         {
-            foreach (var player in players)
-            {
-                player.primaryHand = new Hand();
-            }
-            dealer.primaryHand = new Hand();
-
             if (currentShoe.Cut < currentShoe.CardsDealt)
             {
                 currentShoe = new Shoe(decks);
@@ -63,14 +62,14 @@ namespace Blackjack.Core.Game
         {
             display.DisplayGame(this);
             foreach (var person in players)
-            {
-                person.primaryHand.Bet = person.PlaceBet();
-            }
+                foreach (var hand in person.hands)
+                    hand.Bet = person.PlaceBet();
+
         }
 
         private void IndividualsPlay()
         {
-            if (dealer.primaryHand.Score != 21)
+            if (dealer.hands[0].Score != 21)
             {
                 foreach (var person in players)
                 {
@@ -86,42 +85,52 @@ namespace Blackjack.Core.Game
         {
             foreach (var person in players)
             {
-                if (person.primaryHand.Busted)
+                foreach (var playerHand in person.hands)
                 {
-                    person.Money -= person.primaryHand.Bet;
-                    Console.WriteLine("player loses");
-
-                }
-                else if (dealer.primaryHand.Busted)
-                {
-                    person.Money += person.primaryHand.Bet;
-                    Console.WriteLine("player WINS");
-                }
-                else if (person.primaryHand.Score > dealer.primaryHand.Score)
-                {
-                    if(person.primaryHand.Score==21 && person.primaryHand.Cards.Count == 2)
+                    if (playerHand.Busted)
                     {
-                        person.Money += (int)Math.Floor(person.primaryHand.Bet * 1.5);
-                        Console.WriteLine("player WINS - blackjack");
+                        person.Money -= playerHand.Bet;
+                        person.stats.Loss += 1;
+                        Console.WriteLine("player loses");
+                    }
+                    else if (dealer.hands[0].Busted)
+                    {
+                        person.Money += playerHand.Bet;
+                        person.stats.NonBlackJackWins += 1;
+                        Console.WriteLine("player WINS");
+                    }
+                    else if (playerHand.Score > dealer.hands[0].Score)
+                    {
+                        if (playerHand.Score == 21 && playerHand.Cards.Count == 2)
+                        {
+                            person.Money += (int)Math.Floor(playerHand.Bet * 1.5);
+                            person.stats.BlackJackWins += 1;
+                            Console.WriteLine("player WINS - blackjack");
+
+                        }
+                        else
+                        {
+                            person.Money += playerHand.Bet;
+                            person.stats.NonBlackJackWins += 1;
+                            Console.WriteLine("player WINS");
+                        }
+
+                    }
+                    else if (playerHand.Score < dealer.hands[0].Score)
+                    {
+                        person.Money -= playerHand.Bet;
+                        person.stats.Loss += 1;
+                        Console.WriteLine("player loses");
+
 
                     }
                     else
                     {
-                        person.Money += person.primaryHand.Bet;
-                        Console.WriteLine("player WINS");
+                        person.stats.Push += 1;
+                        Console.WriteLine("Push");
                     }
+                }
 
-                }
-                else if (person.primaryHand.Score < dealer.primaryHand.Score)
-                {
-                    person.Money -= person.primaryHand.Bet;
-                    Console.WriteLine("player loses");
-
-                }
-                else
-                {
-                    Console.WriteLine("Push");
-                }
 
             }
         }

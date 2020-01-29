@@ -6,7 +6,7 @@ using Blackjack.Core.UserInteraction;
 
 namespace BlackjackCLI.InputFromPlayer
 {
-    class DisplayCLI :IDisplayGame
+    class DisplayCLI : IDisplayGame
     {
         public void DisplayGame(Game game)
         {
@@ -15,23 +15,31 @@ namespace BlackjackCLI.InputFromPlayer
             foreach (var player in game.players)
             {
                 ShowPlayer(player);
-            }            
+            }
+            Thread.Sleep(500);
         }
         public void ShowPlayer(Player player)
         {
             Console.WriteLine($"{player.name} : ${player.Money}");
-            var cards = "";
-            foreach (var card in player.primaryHand.Cards)
+            Console.WriteLine($"Non-BlackJack Wins: {player.stats.NonBlackJackWins}, Black Jack Wins: {player.stats.BlackJackWins}, Losses: {player.stats.Loss}, Pushes: {player.stats.Push}");
+            foreach (var hand in player.hands)
             {
-                cards += $" {card.CardValue}";
+                var cards = "";
+
+                foreach (var card in hand.Cards)
+                {
+                    cards += $" {card.CardValue}";
+                }
+                Console.WriteLine(cards);
             }
-            Console.WriteLine(cards);
+
+            
         }
         public void ShowDealer(Player dealer)
         {
             Console.WriteLine($"{dealer.name}");
             var cards = "";
-            foreach (var card in dealer.primaryHand.Cards)
+            foreach (var card in dealer.hands[0].Cards)
             {
                 cards += $" {card.CardValue}";
             }

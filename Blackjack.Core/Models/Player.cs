@@ -1,13 +1,47 @@
-﻿using System;
+﻿using Blackjack.Core.Strategies;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Blackjack.Core
 {
-    class Player
+    public class Player
     {
-        public List<Card> PrimaryHand;
-        public List<Card> SplitHand;
+        public string name { get; set; }
+        public List<Hand> hands;
         public int Money;
+        public IStrategy strategy;
+        public PlayerStats stats = new PlayerStats();
+        public Player(IStrategy strategy,int startingMoney = 100)
+        {
+            this.strategy = strategy;
+            name = strategy.ToString();
+            Money = startingMoney;
+        }
+        public List<int> PlayTurn(Shoe currentShoe)
+        {
+            var Scores = new List<int>();
+            for(int i =0; i<hands.Count; i++)
+            {
+                var currentHand = hands[i];
+                var done = false;
+                while (done == false)
+                {
+                    var action = strategy.ExecuteStrategy(currentHand, currentShoe);
+                    done = action.Play(currentShoe, currentHand, hands);
+                    if (currentHand.Busted)
+                    {
+                        done = true;
+                    }
+                }
+                Scores.Add(currentHand.Score);
+            }
+            
+            return Scores;
+        }
+        public int PlaceBet()
+        {
+            var bettingAction = strategy.BettingStrategy();
+            return bettingAction.Bet();
+        }
+
     }
 }

@@ -4,9 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Blackjack"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        mc:Ignorable="d" FontSize="18"
+        Title="Game" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
 
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" 
+                   Text="Dealer's Hand" FontFamily="Leelawadee" 
+                   FontSize="18" Margin="0,0,0,10"/>
+        <TextBox x:Name="DealersHand" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="1" 
+                   Text="00 00" FontFamily="Leelawadee" 
+                   FontSize="18" Margin="0,0,0,10">
+        </TextBox>
+
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" 
+                   Text="Players's Hand" FontFamily="Leelawadee" 
+                   FontSize="18" Margin="0,0,0,10"/>
+        <TextBox x:Name="playerHand" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="2" 
+                   Text="00 00" FontFamily="Leelawadee" 
+                   FontSize="18" Margin="0,0,0,10">
+        </TextBox>
+        
+        <Button x:Name="hitButton" Content="Hit" Grid.Column="1"
+                Grid.Row="3" Margin="10" Grid.ColumnSpan="2"/>
+        <Button x:Name="standButton" Content="Stand" Grid.Column="1"
+                Grid.Row="4" Margin="10" Grid.ColumnSpan="2"/>
+
+        <ComboBox x:Name="myComboBox" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FirstName}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </Window>

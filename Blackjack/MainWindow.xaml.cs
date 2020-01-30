@@ -20,9 +20,22 @@ namespace Blackjack
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<People> peoples;
         public MainWindow()
         {
             InitializeComponent();
+            peoples = new List<People>();
+            peoples.Add(new People { FirstName = "Jordan", LastName = "Franklin" });
+            peoples.Add(new People { FirstName = "Matt", LastName = "Myers" });
+            peoples.Add(new People { FirstName = "Nick", LastName = "Nova" });
+            myComboBox.ItemsSource=peoples;
         }
+
+
+    }
+    public class People
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

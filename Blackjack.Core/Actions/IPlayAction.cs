@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Blackjack.Core.Actions
 {
@@ -46,6 +47,15 @@ namespace Blackjack.Core.Actions
             currentHand.Cards.Remove(splitOffCard);
             currentHand.AddCardToHand(currentShoe.DealCard());
             return false;
+        }
+    }
+    public class Surrender : IPlayAction
+    {
+        public bool Play(Shoe currentShoe, Hand currentHand, List<Hand> hands)
+        {
+            currentHand.Bet = (int)Math.Ceiling(currentHand.Bet / 2.0);
+            currentHand.Surrendered = true;
+            return true;
         }
     }
 }

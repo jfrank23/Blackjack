@@ -87,7 +87,13 @@ namespace Blackjack.Core.Game
             {
                 foreach (var playerHand in person.hands)
                 {
-                    if (playerHand.Busted)
+                    if (playerHand.Surrendered)
+                    {
+                        person.Money -= playerHand.Bet;
+                        person.stats.Loss += 1;
+                        Console.WriteLine("player surrenders");
+                    }
+                    else if (playerHand.Busted)
                     {
                         person.Money -= playerHand.Bet;
                         person.stats.Loss += 1;

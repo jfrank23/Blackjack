@@ -9,6 +9,7 @@ namespace Blackjack.Core
         public int Bet;
         public int Score;
         public bool Busted;
+        public bool Surrendered;
 
         public Hand()
         {
